@@ -1,0 +1,158 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red107\green0\blue1;\red14\green110\blue109;
+\red109\green109\blue109;\red0\green0\blue109;\red109\green111\blue3;}
+{\*\expandedcolortbl;;\cspthree\c0\c0\c0;\cspthree\c45843\c7983\c4717;\cspthree\c21608\c49421\c49802;
+\cspthree\c50200\c50200\c50200;\cspthree\c5\c0\c48067;\cspthree\c50200\c50200\c14871;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww29200\viewh17820\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs15\fsmilli7803 \cf2 import random\
+serpents\cf3 = \{\cf4 14\cf3 :\cf4 4 \cf3 , \cf4 28\cf3 :\cf4 10 \cf3 , \cf4 43\cf3 :\cf4 1 \cf3 , \cf4 47\cf3 :\cf4 18 \cf3 , \cf4 51\cf3 :\cf4 31\cf3 , \cf4 68\cf3 :\cf4 33\cf3 , \cf4 63\cf3 :\cf4 39 \cf3 , \cf4 77\cf3 :\cf4 26\cf3 , \cf4 83\cf3 :\cf4 58 \cf3 , \cf4 95\cf3 :\cf4 53\cf3 , \cf4 90\cf3 :\cf4 70\cf3 , \cf4 99\cf3 :\cf4 80\cf3 \}\
+\cf2 echelles\cf3 = \{\cf4 2\cf3 :\cf4 20 \cf3 , \cf4 8\cf3 :\cf4 30 \cf3 , \cf4 16\cf3 :\cf4 37\cf3 , \cf4 27\cf3 :\cf4 69 \cf3 , \cf4 47\cf3 :\cf4 55 \cf3 , \cf4 41\cf3 :\cf4 62\cf3 , \cf4 73\cf3 :\cf4 94 \cf3 , \cf4 65\cf3 :\cf4 79\cf3 \}\
+\cf5 # Mode d'affichage\
+\cf2 MODE_AFFICHAGE\cf3 = \cf6 True\
+\cf2 def \cf4 afficher\cf3 (\cf2 message\cf3 , \cf2 statut\cf3 ):\
+\cf2 	if statut\cf3 :\
+\cf2 		print\cf3 (\cf2 message\cf3 )\
+\cf2 def \cf4 lancer_de\cf3 ():\
+\cf2 	return random\cf3 .\cf2 randint\cf3 (\cf4 1\cf3 ,\cf4 6\cf3 )\
+\cf2 def \cf4 initialiser_joueur\cf3 (\cf2 nb_joueurs\cf3 ):\
+\cf2 	return \cf3 [\cf4 0\cf3 ] * \cf2 nb_joueurs\
+def \cf4 avancer\cf3 (\cf2 liste_joueur\cf3 , \cf2 joueur_actuel\cf3 , \cf2 valeur_de\cf3 , \cf2 serpents\cf3 , \cf2 echelles\cf3 , \cf2 stats\cf3 ):\
+\cf2 	nouvelle_position\cf3 = \cf2 liste_joueur\cf3 [\cf2 joueur_actuel\cf3 ] + \cf2 valeur_de\
+\cf5 # Depassement\
+\cf2 if nouvelle_position \cf3 > \cf4 100\cf3 :\
+\cf2 	afficher\cf3 (\cf2 f\cf7 " => Le joueur \{joueur_actuel+1\} depasse la case 100"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 reculement\cf3 = \cf2 nouvelle_position\cf3 - \cf4 100\
+\cf2 afficher\cf3 (\cf2 f\cf7 " => Il recule de \{reculement\} case(s)"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 nouvelle_position\cf3 = \cf4 100\cf3 - \cf2 reculement\
+stats\cf3 [\cf7 "depassements"\cf3 ][\cf2 joueur_actuel\cf3 ] += \cf4 1\
+\cf5 # Serpents\
+\cf2 if nouvelle_position in serpents\cf3 :\
+\cf2 ancienne_position\cf3 = \cf2 nouvelle_position\
+nouvelle_position\cf3 = \cf2 serpents\cf3 [\cf2 nouvelle_position\cf3 ]\
+\cf2 afficher\cf3 (\cf2 f\cf7 "SERPENT ! Joueur \{joueur_actuel+1\} : \{ancienne_position\} -> \{nouvelle_position\}"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 stats\cf3 [\cf7 "serpents"\cf3 ][\cf2 joueur_actuel\cf3 ] += \cf4 1\
+\cf5 # Echelles\
+\cf2 elif nouvelle_position in echelles\cf3 :\
+\cf2 ancienne_position\cf3 = \cf2 nouvelle_position\
+nouvelle_position\cf3 = \cf2 echelles\cf3 [\cf2 nouvelle_position\cf3 ]\
+\cf2 afficher\cf3 (\cf2 f\cf7 "ECHELLE ! Joueur \{joueur_actuel+1\} : \{ancienne_position\} -> \{nouvelle_position\}"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 stats\cf3 [\cf7 "echelles"\cf3 ][\cf2 joueur_actuel\cf3 ] += \cf4 1\
+\cf2 liste_joueur\cf3 [\cf2 joueur_actuel\cf3 ] = \cf2 nouvelle_position\
+return nouvelle_position\
+def \cf4 fin_de_partie\cf3 (\cf2 position\cf3 ):\
+\cf2 return position \cf3 >= \cf4 100\
+\cf2 def \cf4 afficher_plateau\cf3 (\cf2 joueurs\cf3 ):\
+\cf2 afficher\cf3 (\cf7 "\\n" \cf3 + \cf7 "-"\cf3 *\cf4 40\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 afficher\cf3 (\cf7 "POSITIONS :"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 for i in \cf6 range\cf3 (\cf6 len\cf3 (\cf2 joueurs\cf3 )):\
+\cf2 if joueurs\cf3 [\cf2 i\cf3 ] == \cf6 max\cf3 (\cf2 joueurs\cf3 ):\
+\cf2 afficher\cf3 (\cf2 f\cf7 "Joueur \{i+1\} : \{joueurs[i]\} (en tete)"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 else\cf3 :\
+\cf2 afficher\cf3 (\cf2 f\cf7 "Joueur \{i+1\} : \{joueurs[i]\}"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 def \cf4 afficher_tour\cf3 (\cf2 joueur_actuel\cf3 , \cf2 de\cf3 , \cf2 ancienne\cf3 , \cf2 nouvelle\cf3 ):\
+\cf2 afficher\cf3 (\cf7 "\\n" \cf3 + \cf7 "="\cf3 *\cf4 40\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 afficher\cf3 (\cf2 f\cf7 "JOUEUR \{joueur_actuel+1\}"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 afficher\cf3 (\cf2 f\cf7 "De : \{de\}"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 afficher\cf3 (\cf2 f\cf7 "\{ancienne\} \uc0\u1074 \'86\'92 \{nouvelle\}"\cf3 , \cf2 MODE_AFFICHAGE\cf3 )\
+\cf2 def \cf4 jouer_une_partie\cf3 (\cf2 nb_joueurs\cf3 ):\
+\cf2 joueurs\cf3 = \cf2 initialiser_joueur\cf3 (\cf2 nb_joueurs\cf3 )\
+\cf2 stats\cf3 = \{\
+\cf7 "serpents"\cf3 : [\cf4 0\cf3 ]*\cf2 nb_joueurs\cf3 ,\
+\cf7 "echelles"\cf3 : [\cf4 0\cf3 ]*\cf2 nb_joueurs\cf3 ,\
+\cf7 "depassements"\cf3 : [\cf4 0\cf3 ]*\cf2 nb_joueurs\
+\cf3 \}\
+\cf2 tours\cf3 = [\cf4 0\cf3 ]*\cf2 nb_joueurs\
+joueur_actuel\cf3 = \cf4 0\
+\cf2 gagnant\cf3 = -\cf4 1\
+\cf2 while \cf6 True\cf3 :\
+\cf2 if MODE_AFFICHAGE\cf3 :\
+\cf6 input\cf3 (\cf7 "Appuyez sur Entr\uc0\u1043 \'a9e pour lancer le d\u1043 \'a9"\cf3 )\
+\cf2 de\cf3 = \cf2 lancer_de\cf3 ()\
+\cf2 ancienne\cf3 = \cf2 joueurs\cf3 [\cf2 joueur_actuel\cf3 ]\
+\cf2 tours\cf3 [\cf2 joueur_actuel\cf3 ] += \cf4 12\
+\cf2 nouvelle\cf3 = \cf2 avancer\cf3 (\cf2 joueurs\cf3 , \cf2 joueur_actuel\cf3 , \cf2 de\cf3 , \cf2 serpents\cf3 , \cf2 echelles\cf3 , \cf2 stats\cf3 )\
+\cf2 afficher_tour\cf3 (\cf2 joueur_actuel\cf3 , \cf2 de\cf3 , \cf2 ancienne\cf3 , \cf2 nouvelle\cf3 )\
+\cf2 if fin_de_partie\cf3 (\cf2 nouvelle\cf3 ):\
+\cf2 gagnant\cf3 = \cf2 joueur_actuel\
+if MODE_AFFICHAGE\cf3 :\
+\cf2 print\cf3 (\cf2 f\cf7 "\\nJoueur \{joueur_actuel+1\} gagne !"\cf3 )\
+\cf2 break\
+else\cf3 :\
+\cf2 joueur_actuel\cf3 = (\cf2 joueur_actuel \cf3 + \cf4 1\cf3 ) % \cf2 nb_joueurs\
+if joueur_actuel\cf3 == \cf4 0 \cf2 and MODE_AFFICHAGE\cf3 :\
+\cf2 afficher_plateau\cf3 (\cf2 joueurs\cf3 )\
+\cf2 return \cf3 \{\
+\cf7 "gagnant"\cf3 : \cf2 gagnant\cf3 ,\
+\cf7 "tours"\cf3 : \cf2 tours\cf3 ,\
+\cf7 "stats"\cf3 : \cf2 stats\
+\cf3 \}\
+\cf2 def \cf4 afficher_statistiques_partie\cf3 (\cf2 stats\cf3 , \cf2 tours\cf3 , \cf2 gagnant\cf3 , \cf2 nb_joueurs\cf3 ):\
+\cf2 print\cf3 (\cf7 "\\nSTATISTIQUES :"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "Gagnant : Joueur \{gagnant+1\}"\cf3 )\
+\cf2 for j in \cf6 range\cf3 (\cf2 nb_joueurs\cf3 ):\
+\cf2 print\cf3 (\cf2 f\cf7 "\\nJoueur \{j+1\}"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "Tours : \{tours[j]\}"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "Serpents : \{stats['serpents'][j]\}"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "\uc0\u1043 \'89chelles : \{stats['echelles'][j]\}"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "D\uc0\u1043 \'a9passements : \{stats['depassements'][j]\}"\cf3 )\
+\cf2 def \cf4 etude_statistique\cf3 ():\
+\cf2 global MODE_AFFICHAGE\
+MODE_AFFICHAGE\cf3 = \cf6 False\cf2 nb_parties\cf3 = \cf6 int\cf3 (\cf6 input\cf3 (\cf7 "Nombre de parties : "\cf3 ))\
+\cf2 nb_joueurs\cf3 = \cf6 int\cf3 (\cf6 input\cf3 (\cf7 "Nombre de joueurs (1-4) : "\cf3 ))\
+\cf2 while nb_joueurs \cf3 < \cf4 1 \cf2 or nb_joueurs \cf3 > \cf4 4\cf3 :\
+\cf2 nb_joueurs\cf3 = \cf6 int\cf3 (\cf6 input\cf3 (\cf7 "Erreur (1-4) : "\cf3 ))\
+\cf2 total_tours_gagnant\cf3 = \cf4 0\
+\cf2 total_serpents\cf3 = [\cf4 0\cf3 ]*\cf2 nb_joueurs\
+total_echelles\cf3 = [\cf4 0\cf3 ]*\cf2 nb_joueurs\
+total_depassements\cf3 = [\cf4 0\cf3 ]*\cf2 nb_joueurs\
+total_tours\cf3 = [\cf4 0\cf3 ]*\cf2 nb_joueurs\
+victoires\cf3 = [\cf4 0\cf3 ]*\cf2 nb_joueurs\
+for i in \cf6 range\cf3 (\cf2 nb_parties\cf3 ):\
+\cf2 resultat\cf3 = \cf2 jouer_une_partie\cf3 (\cf2 nb_joueurs\cf3 )\
+\cf2 gagnant\cf3 = \cf2 resultat\cf3 [\cf7 "gagnant"\cf3 ]\
+\cf2 victoires\cf3 [\cf2 gagnant\cf3 ] += \cf4 1\
+\cf2 total_tours_gagnant \cf3 += \cf2 resultat\cf3 [\cf7 "tours"\cf3 ][\cf2 gagnant\cf3 ]\
+\cf2 for j in \cf6 range\cf3 (\cf2 nb_joueurs\cf3 ):\
+\cf2 total_serpents\cf3 [\cf2 j\cf3 ] += \cf2 resultat\cf3 [\cf7 "stats"\cf3 ][\cf7 "serpents"\cf3 ][\cf2 j\cf3 ]\
+\cf2 total_echelles\cf3 [\cf2 j\cf3 ] += \cf2 resultat\cf3 [\cf7 "stats"\cf3 ][\cf7 "echelles"\cf3 ][\cf2 j\cf3 ]\
+\cf2 total_depassements\cf3 [\cf2 j\cf3 ] += \cf2 resultat\cf3 [\cf7 "stats"\cf3 ][\cf7 "depassements"\cf3 ][\cf2 j\cf3 ]\
+\cf2 total_tours\cf3 [\cf2 j\cf3 ] += \cf2 resultat\cf3 [\cf7 "tours"\cf3 ][\cf2 j\cf3 ]\
+\cf2 if \cf3 (\cf2 i\cf3 +\cf4 1\cf3 ) % \cf4 10\cf3 == \cf4 0\cf3 :\
+\cf2 print\cf3 (\cf2 f\cf7 "\{i+1\} parties..."\cf3 )\
+\cf2 print\cf3 (\cf7 "\\nR\uc0\u1043 \'89SULTATS :"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "\\nTours moyens du gagnant : \{total_tours_gagnant/nb_parties:.2f\}"\cf3 )\
+\cf2 print\cf3 (\cf7 "\\nTaux de victoire :"\cf3 )\
+\cf2 for j in \cf6 range\cf3 (\cf2 nb_joueurs\cf3 ):\
+\cf2 print\cf3 (\cf2 f\cf7 "Joueur \{j+1\} : \{(victoires[j]/nb_parties)*100:.2f\}%"\cf3 )\
+\cf2 print\cf3 (\cf7 "\\nTours moyens par joueur :"\cf3 )\
+\cf2 for j in \cf6 range\cf3 (\cf2 nb_joueurs\cf3 ):\
+\cf2 print\cf3 (\cf2 f\cf7 "Joueur \{j+1\} : \{total_tours[j]/nb_parties:.2f\}"\cf3 )\
+\cf2 print\cf3 (\cf7 "\\nMoyennes \uc0\u1043 \'a9v\u1043 \'a9nements :"\cf3 )\
+\cf2 for j in \cf6 range\cf3 (\cf2 nb_joueurs\cf3 ):\
+\cf2 print\cf3 (\cf2 f\cf7 "\\nJoueur \{j+1\}"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "Serpents : \{total_serpents[j]/nb_parties:.2f\}"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "\uc0\u1043 \'89chelles : \{total_echelles[j]/nb_parties:.2f\}"\cf3 )\
+\cf2 print\cf3 (\cf2 f\cf7 "D\uc0\u1043 \'a9passements : \{total_depassements[j]/nb_parties:.2f\}"\cf3 )\
+\cf2 def \cf4 deroulement\cf3 ():\
+\cf2 global MODE_AFFICHAGE\
+print\cf3 (\cf7 "\\n--- SERPENTS ET \uc0\u1043 \'89CHELLES ---"\cf3 )\
+\cf2 print\cf3 (\cf7 "1. Jouer"\cf3 )\
+\cf2 print\cf3 (\cf7 "2. Statistiques"\cf3 )\
+\cf2 choix\cf3 = \cf6 input\cf3 (\cf7 "Choix : "\cf3 )\
+\cf2 if choix\cf3 == \cf7 "1"\cf3 :\
+\cf2 mode\cf3 = \cf6 input\cf3 (\cf7 "Affichage ? (1 oui / 0 non) : "\cf3 )\
+\cf2 MODE_AFFICHAGE\cf3 = (\cf2 mode\cf3 == \cf7 "1"\cf3 )\
+\cf2 nb_joueurs\cf3 = \cf6 int\cf3 (\cf6 input\cf3 (\cf7 "Nombre de joueurs (1-4) : "\cf3 ))\
+\cf2 while nb_joueurs \cf3 < \cf4 1 \cf2 or nb_joueurs \cf3 > \cf4 4\cf3 :\
+\cf2 nb_joueurs\cf3 = \cf6 int\cf3 (\cf6 input\cf3 (\cf7 "Erreur (1-4) : "\cf3 ))\
+\cf2 resultat\cf3 = \cf2 jouer_une_partie\cf3 (\cf2 nb_joueurs\cf3 )\
+\cf2 if not MODE_AFFICHAGE\cf3 :\
+\cf2 afficher_statistiques_partie\cf3 (\cf2 resultat\cf3 [\cf7 "stats"\cf3 ], \cf2 resultat\cf3 [\cf7 "tours"\cf3 ], \cf2 resultat\cf3 [\cf7 "gagnant"\cf3 ], \cf2 nb_joueurs\cf3 )\
+\cf2 elif choix\cf3 == \cf7 "2"\cf3 :\
+\cf2 etude_statistique\cf3 ()\
+\cf2 else\cf3 :\
+\cf2 print\cf3 (\cf7 "Choix invalide"\cf3 )\
+\cf2 deroulement\cf3 ()}

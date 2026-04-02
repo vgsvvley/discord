@@ -1,0 +1,7 @@
+def addition(a,b):
+	return a + b
+
+def soustraction(c,d):
+	return c - d
+	
+_x = 10
