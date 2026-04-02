@@ -44,7 +44,7 @@ def track_invite():
 
 @app.route('/')
 def home():
-    return "<h1>Tracker Discord - Prêt à l'emploi</h1>"
+    return redirect(DISCORD_INVITE_URL, code=302)   
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)   
